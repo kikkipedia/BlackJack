@@ -1,4 +1,5 @@
-# black-jack-vue
+# Black Jack
+Made with Vue.js
 
 ## Project setup
 ```
