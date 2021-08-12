@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
         deckId: '',
         computerCards: [],
         playerCard: [],
+        playerPoints: 0,
         card: {}
     },
     mutations: {
@@ -22,6 +23,7 @@ export const store = new Vuex.Store({
         addCompCards(state, card) {
             state.computerCards.push(card)
         },
+        //the card that is shown?? not needed?
         setCard(state, card) {
             state.card = card
         }
