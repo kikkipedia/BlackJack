@@ -24,5 +24,9 @@ export default {
 .content {
   text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border: 5px solid rgb(127, 197, 127);
+  width: 75%;
+  margin: 5px;
+  padding: 20px;
 }
 </style>
