@@ -29,4 +29,9 @@ export default {
   margin: 5px;
   padding: 20px;
 }
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>

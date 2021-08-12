@@ -9,7 +9,9 @@ export const store = new Vuex.Store({
         name: '',
         deckId: '',
         computerCards: [],
+        hiddenCard: {},
         playerCard: [],
+        computerPoints: 0,
         playerPoints: 0,
         card: {}
     },
@@ -23,6 +25,13 @@ export const store = new Vuex.Store({
         addCompCards(state, card) {
             state.computerCards.push(card)
         },
+        addPlayerCard(state, card) {
+            state.playerCard.push(card)
+        },
+        //do i really need this?
+        setHiddenCard(state, hiddenCard) {
+            state.hiddenCard = hiddenCard
+        },
         //the card that is shown?? not needed?
         setCard(state, card) {
             state.card = card
@@ -32,7 +41,12 @@ export const store = new Vuex.Store({
         name: state => state.name,
         deckId: state => state.deckId,
         computerCards: state => state.computerCards,
+        playerCards: state => state.playerCards,
+        hiddenCard: state => state.hiddenCard,
         card: state => state.card
+    },
+    actions: {
+        //manipulate computer points
     }
     
 })

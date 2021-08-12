@@ -1,22 +1,28 @@
 <template>
   <div class="content">
       <p>Let's go {{this.$store.state.name}}!</p>
-      <p><button>Draw</button></p>
-      <p><button>Stop</button></p>
-      <table>
-          <tr>
-              <th>Computer</th>
-              <th>{{this.$store.state.name}}</th>
-          </tr>
-          <tr>
-              <td>Computer cards</td>
-              <td>Player cards</td>
-          </tr>
-          <tr>
-              <td><img class="card" v-bind:src="imgSrc" alt="card"/><img class="card" src="https://opengameart.org/sites/default/files/styles/medium/public/card%20back%20purple.png" alt="secret"></td>
-              <td>Points: {{this.$store.state.playerPoints}}</td>
-          </tr>
-      </table>
+      
+      <div class="center">
+        <table class="center">
+            <tr>
+                <th>Computer</th>
+                <th>{{this.$store.state.name}}</th>
+            </tr>
+            <tr>
+                <td>Cards array<img class="card" v-bind:src="imgSrcComp" alt="card"><img class="card" src="https://opengameart.org/sites/default/files/styles/medium/public/card%20back%20purple.png" alt="secret"></td>
+                <td>Cards array</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p><img class="card" v-bind:src="imgSrcPla" alt="card"></p>
+                    <p>Points: {{this.$store.state.playerPoints}}</p>
+                    <p><button @click="drawPlayerCard()">Draw</button></p>
+                    <p><button>Stop</button></p>
+                </td>
+            </tr>
+        </table>
+      </div>
   </div>
 </template>
 
@@ -27,8 +33,8 @@ export default {
         return {
             apiUrl: "https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
             card1: {},
-            card2: {},
-            imgSrc: ''
+            imgSrcComp: '',
+            imgSrcPla: ''
         }
     },
     methods: {
@@ -49,21 +55,42 @@ export default {
             try {
                 let response = await fetch("https://www.deckofcardsapi.com/api/deck/"+ this.$store.state.deckId +"/draw/?count=2")
                 .then(response => response.json())
-                //first cards
+                //first computer cards
                 this.card1 = response.cards[0]
-                this.card2 = response.cards[1]
+                let card2 = response.cards[1]
                 //put them in computerCards array
                 this.$store.commit('addCompCards', this.card1)
-                this.$store.commit('addCompCards', this.card2)
+                this.$store.commit('addCompCards', card2)
+                //if to show hidden card later
+                this.$store.commit('setHiddenCard', card2)
                 //gets url for img
-                this.imgSrc = this.$store.state.computerCards[0].image
-                // working!! console.log(this.$store.state.computerCards[0].image)
+                this.imgSrcComp = this.$store.state.computerCards[0].image
             }
             catch(err){
                 console.log("Something happened: " + err)
             }
+        },
+        //draw one card and add to playerCards
+        //show image
+        //TODO!!
+        async drawPlayerCard(){
+            try {
+                let response = await fetch("https://www.deckofcardsapi.com/api/deck/"+ this.$store.state.deckId +"/draw/?count=1")
+                .then(response => response.json())
+                let card = response.cards[0]
+                this.$store.commit('addPlayerCard', this.card)
+                this.imgSrcPla = card.image
+            }
+            catch(err){
+                console.log("Something happened: " + err)
+            }
+        },
+        addToComputerScore(){
+
+        },
+        addToPlayerScore(){
+
         }
-        //draw one/first cards - adds to array
         
     },
     mounted() {
