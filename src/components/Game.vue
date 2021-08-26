@@ -9,7 +9,7 @@
                 <th>{{this.$store.state.name}}</th>
             </tr>
             <tr>
-                <td>Cards array<img class="card" v-bind:src="imgSrcComp" alt="card"><img class="card" src="https://opengameart.org/sites/default/files/styles/medium/public/card%20back%20purple.png" alt="secret"></td>
+                <td><img class="card" v-bind:src="imgSrcComp" alt="card"><img class="card" src="https://opengameart.org/sites/default/files/styles/medium/public/card%20back%20purple.png" alt="secret"></td>
                 <td>Cards array</td>
             </tr>
             <tr>

@@ -1,8 +1,9 @@
 <template>
     <div class="content">
-        <h2>Welcome</h2>
-        <p>Here you can play Black Jack against a computer</p>
+        <h2>Welcome <span style='font-size:25px;'>&#128075;</span></h2>
+        <p>Here you can play Black Jack against a computer </p>
         <button @click="startGame()">START GAME</button>
+        <p><span style='font-size:70px;'>&#127183;</span></p>
     </div>
 </template>
 
