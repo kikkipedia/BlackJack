@@ -28,6 +28,9 @@ export const store = new Vuex.Store({
         addPlayerCard(state, card) {
             state.playerCard.push(card)
         },
+        setPlayerPoints(state, playerPoints) {
+            state.playerPoints = playerPoints
+        },
         //do i really need this?
         setHiddenCard(state, hiddenCard) {
             state.hiddenCard = hiddenCard
@@ -43,7 +46,8 @@ export const store = new Vuex.Store({
         computerCards: state => state.computerCards,
         playerCards: state => state.playerCards,
         hiddenCard: state => state.hiddenCard,
-        card: state => state.card
+        card: state => state.card,
+        playerPoints: state => state.playerPoints
     },
     actions: {
         //manipulate computer points

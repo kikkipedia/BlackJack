@@ -10,7 +10,13 @@
             </tr>
             <tr>
                 <td><img class="card" v-bind:src="imgSrcComp" alt="card"><img class="card" src="https://opengameart.org/sites/default/files/styles/medium/public/card%20back%20purple.png" alt="secret"></td>
-                <td>Cards array</td>
+                <td>
+                    <!-- not working -->
+                    <div v-for="(image, index) in this.$store.state.imgSrcPla" :key="index">
+                        <img class="card" v-bind:src="this.$store.state.imgSrcPla" alt="card">
+                    </div>
+                    
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -23,6 +29,7 @@
             </tr>
         </table>
       </div>
+      <button>Return</button>
   </div>
 </template>
 
@@ -77,9 +84,12 @@ export default {
             try {
                 let response = await fetch("https://www.deckofcardsapi.com/api/deck/"+ this.$store.state.deckId +"/draw/?count=1")
                 .then(response => response.json())
+                console.log(response)
                 let card = response.cards[0]
                 this.$store.commit('addPlayerCard', this.card)
                 this.imgSrcPla = card.image
+                this.$store.commit('addPlayerCard', this.imgSrcPla)
+                this.addToPlayerScore(card)
             }
             catch(err){
                 console.log("Something happened: " + err)
@@ -88,8 +98,32 @@ export default {
         addToComputerScore(){
 
         },
-        addToPlayerScore(){
-
+        addToPlayerScore(card){
+            let value = card.value
+            if(value === 'KING') {
+                value = 13
+            }
+            if(value === 'QUEEN') {
+                value = 12
+            }
+            if(value === 'JACK') {
+                value = 11
+            }
+            //TODO - Value is 1 or 14
+            if(value === 'ACE') {
+                value = 1
+            }
+            value = parseInt(value)
+            let newScore = this.$store.state.playerPoints + value
+            this.$store.commit('setPlayerPoints', newScore )
+            if (this.$store.state.playerPoints > 21) {
+                this.playerLoose()
+            }
+            
+        },
+        //TODO
+        playerLoose() {
+            alert("FULL")
         }
         
     },
